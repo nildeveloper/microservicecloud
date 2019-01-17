@@ -1,0 +1,29 @@
+server: 
+  port: 9527
+ 
+spring: 
+  application:
+    name: microservicecloud-zuul-gateway
+ 
+eureka: 
+  client: 
+    service-url: 
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka  
+  instance:
+    instance-id: gateway-9527.com
+    prefer-ip-address: true 
+
+# zuul 路由访问映射
+zuul: 
+  prefix: /lhl  # 添加同一的访问前缀
+  ignored-services: "*"  # 忽略所有原微服务名称访问
+  routes: 
+    mydept.serviceId: microservicecloud-dept  # 映射原微服务访问名称为自定义名称
+    mydept.path: /mydept/**
+ 
+# Eureka 注册中心点击微服务超链接后需要显示的 Info 信息
+info:
+  app.name: lhl-microservicecloud
+  company.name: nildeveloper.cn
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
